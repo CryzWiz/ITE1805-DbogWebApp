@@ -1,0 +1,51 @@
+{% extends "generalTemplate.twig" %}
+
+{% block head %}
+
+
+
+{% endblock %}
+
+{% block content %}
+        <div class="row ver_mail_top_clearing">
+
+            {% if status == '1' %}
+            <div class="col-sm-6 col-sm-offset-3 center">
+                <h1>Gratulerer! Mail er bekreftet. </h1>
+                <p></p>
+                <p>Du vil nå ha mulighet til å logge inn, lage poster osv.</p>
+                <p>Velkommen som bruker av bloggen vår, {{ user.Firstname }}!</p>
+
+                <form action="{{ public_html_dir }}/index.php">
+                    <button type="submit" class="btn btn-success btn-sm">
+                        Til forsiden</button>
+
+                </form>
+            </div>
+            {% elseif status == '2' %}
+                <div class="col-sm-6 col-sm-offset-3 center">
+                    <h1>Du har fått nytt passord </h1>
+                    <p></p>
+                    <p>Det ble bedt om nytt passord til denne brukeren.</p>
+                    <p>Du kan bruke følgende passord for å logge inn:</p>
+                    <p></p>
+                    <h3>{{ password }}</h3>
+                    <p>Husk å endre passord når du har logget inn!!</p>
+
+                    <form action="{{ public_html_dir }}/index.php">
+                        <button type="submit" class="btn btn-success btn-sm">
+                            Til forsiden</button>
+
+                    </form>
+                </div>
+            {% else %}
+                <div class="col-sm-6 col-sm-offset-3 center">
+                    <h1>Noe gikk desverre galt..</h1>
+
+
+                </div>
+            {% endif %}
+
+        </div>
+
+{% endblock %}

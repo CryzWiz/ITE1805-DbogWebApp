@@ -1,0 +1,5 @@
+See Documentation folder for documentation about this project. All other folders only holds documentation and code
+relevant to that folder. All general documents are in Documentation folder.
+
+Project-code developed by this group is located in the public_html folder. The SQL code found
+in the generated-sql folder is also made by this group. The other folders are generated from propel or twig

@@ -1,0 +1,65 @@
+{% extends "generalTemplate.twig" %}
+
+{% block head %}
+    <!-- Specific libraries css and js -->
+    <link rel="stylesheet" href="{{ assets_dir }}/css/mypage.css">
+    <link rel="stylesheet" href="{{ assets_dir }}/bootstrap-3.3.7/css/bootstrap-select.css">
+
+
+{% endblock %}
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Include the sidebar -->
+            <div class="col-md-4">
+            {% include 'sidebar_mypage.twig' %}
+            </div>
+
+            <!-- main content -->
+            <div class="col-md-8">
+
+                <h1 class="page-header">
+                    {{ page_heading }}
+                    <small>{{ page_secondary_heading }}</small>
+                </h1>
+
+
+
+                <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                        {% include 'mypage_home.twig' %}
+                    </div>
+                    <div id="userdata" class="tab-pane fade">
+                        {% include 'mypage_userdata.twig' %}
+                    </div>
+                    <div id="stat" class="tab-pane fade">
+                        {% include 'mypage_stats.twig' %}
+                    </div>
+                    <div id="admindata" class="tab-pane fade">
+                        {% include 'mypage_admindata.twig' %}
+                    </div>
+                    <div id="adminusercontroll" class="tab-pane fade">
+                        {% include 'mypage_adminusercontroll.twig' %}
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+        <hr>
+    </div>
+
+    <!-- Javascripts for this page -->
+    <script type="text/javascript" src="{{ assets_dir }}/js/mypage_userinfo.js"></script>
+    <script type="text/javascript" src="{{ assets_dir }}/js/mypage_sitesettings.js"></script>
+    <script type="text/javascript" src="{{ assets_dir }}/bootstrap-3.3.7/js/bootstrap-select.js" ></script>
+    <script type="text/javascript" src="{{ assets_dir }}/js/mypage_auc.js"></script>
+{% endblock %}

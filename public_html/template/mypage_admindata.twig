@@ -1,0 +1,46 @@
+
+<div class="col-sm-12">
+
+    <p>Her kan du endre innstillinger for bloggen.</p>
+    <br>
+    <p><i class="glyphicon glyphicon-info-sign"></i> Siste oppdatering er gjort av: {{ sitesettings.byuser }}.</p>
+    <p><i class="glyphicon glyphicon-info-sign"></i> Oppdateringen ble utført klokken {{ sitesettings.updated | date('H:m:s') }}
+        den {{ sitesettings.updated | date('d/m/Y') }}</p>
+    <br>
+
+    <div class="alert alert-success alert-dismissable" id="alert_sitesettings_update" role="alert" style="display:none;">
+    </div>
+    <div class="form-group">
+        <label for="sitename">Nettsteds-navn</label>
+        <input type="text" id="sitename" name="sitename" value="{{ sitesettings.sitename }}" disabled>
+        <input type="hidden" id="email" name="email" value="{{ user.email }}">
+        <button class="btn btn-md btn-success" type="button" id="update_sitename" disabled><i class="glyphicon glyphicon-ok"></i> Lagre</button>
+        <button class="btn btn-md btn-warning" type="button" id="edit_sitename"><i class="glyphicon glyphicon-edit"></i> Endre</button>
+    </div>
+    <div class="form-group">
+        <label for="sitetitle">Nettsteds-tittel</label>
+        <input type="text" id="sitetitle" name="sitetitle" value="{{  sitesettings.sitetitle }}" disabled>
+        <input type="hidden" id="email" name="email" value="{{ user.email }}">
+        <button class="btn btn-md btn-success" type="button" id="update_sitetitle" disabled><i class="glyphicon glyphicon-ok"></i> Lagre</button>
+        <button class="btn btn-md btn-warning" type="button" id="edit_sitetitle"><i class="glyphicon glyphicon-edit"></i> Endre</button>
+    </div>
+    <div class="form-group">
+        <label for="sitesubtitle">Nettsteds-undertittel</label>
+        <input type="text" id="sitesubtitle" name="sitesubtitle" value="{{  sitesettings.sitesubtitle }}" disabled>
+        <input type="hidden" id="email" name="email" value="{{ user.email }}">
+        <button class="btn btn-md btn-success" type="button" id="update_sitesubtitle" disabled><i class="glyphicon glyphicon-ok"></i> Lagre</button>
+        <button class="btn btn-md btn-warning" type="button" id="edit_sitesubtitle"><i class="glyphicon glyphicon-edit"></i> Endre</button>
+    </div>
+    <div class="form-group">
+        <label for="sitemail">Nettstedets kontaktmail</label>
+        <input type="text" id="sitemail" name="sitemail" value="{{  sitesettings.sitemail }}" disabled>
+        <input type="hidden" id="email" name="email" value="{{ user.email }}">
+        <button class="btn btn-md btn-success" type="button" id="update_sitemail" disabled><i class="glyphicon glyphicon-ok"></i> Lagre</button>
+        <button class="btn btn-md btn-warning" type="button" id="edit_sitemail"><i class="glyphicon glyphicon-edit"></i> Endre</button>
+    </div>
+
+
+
+</div>
+
+

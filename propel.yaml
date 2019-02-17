@@ -1,0 +1,35 @@
+propel:
+  database:
+      connections:
+          stud_v17_arnesen:
+              adapter: mysql
+              classname: Propel\Runtime\Connection\ConnectionWrapper
+              dsn: "mysql:host=kark.uit.no;dbname=stud_v17_arnesen"
+              user: v17_arnesen
+              password: IYqcVYKlhnd0YpTL
+              attributes:
+          local:
+              adapter: mysql
+              classname: Propel\Runtime\Connection\ConnectionWrapper
+              dsn: "mysql:host=localhost:3306;dbname=stud_v17_arnesen"
+              user: root
+              password:
+              attributes:
+  runtime:
+      defaultConnection: local
+      connection:
+          - local
+          - stud_v17_arnesen
+      log:
+          defaultLogger:
+              type: stream
+              path: ../propel.log
+              level: 300
+          defaultDebug:
+              type: stream
+              path: ../propel_debug.log
+  generator:
+      defaultConnection: local
+      connections:
+          - local
+          - stud_v17_arnesen

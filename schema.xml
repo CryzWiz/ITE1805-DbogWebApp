@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="local" defaultIdMethod="native" defaultPhpNamingMethod="underscore">
+  <table name="comments" idMethod="native" phpName="Comments">
+    <column name="comment_id" phpName="CommentId" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="to_post" phpName="ToPost" type="INTEGER" required="true"/>
+    <column name="to_comment" phpName="ToComment" type="INTEGER"/>
+    <column name="made_by_user" phpName="MadeByUser" type="VARCHAR" size="45" required="true"/>
+    <column name="comment" phpName="Comment" type="VARCHAR" size="1000" required="true"/>
+    <column name="comment_made" phpName="CommentMade" type="TIMESTAMP" required="true"/>
+    <column name="active" phpName="Active" type="BOOLEAN" size="1"/>
+    <foreign-key foreignTable="comments" name="fk_c_comment_id">
+      <reference local="to_comment" foreign="comment_id"/>
+    </foreign-key>
+    <foreign-key foreignTable="posts" name="fk_c_post_id">
+      <reference local="to_post" foreign="post_id"/>
+    </foreign-key>
+    <foreign-key foreignTable="users" name="fk_c_user_id">
+      <reference local="made_by_user" foreign="email"/>
+    </foreign-key>
+    <index name="fk_c_post_id_idx">
+      <index-column name="to_post"/>
+    </index>
+    <index name="fk_c_user_id_idx">
+      <index-column name="made_by_user"/>
+    </index>
+    <index name="fk_c_comment_id_idx">
+      <index-column name="to_comment"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="comments_deleted" idMethod="native" phpName="CommentsDeleted">
+    <column name="comment_id" phpName="CommentId" type="INTEGER" primaryKey="true" required="true"/>
+    <column name="to_post" phpName="ToPost" type="INTEGER" required="true"/>
+    <column name="to_comment" phpName="ToComment" type="INTEGER"/>
+    <column name="made_by_user" phpName="MadeByUser" type="VARCHAR" size="45" required="true"/>
+    <column name="comment" phpName="Comment" type="VARCHAR" size="1000" required="true"/>
+    <column name="comment_made" phpName="CommentMade" type="TIMESTAMP" required="true"/>
+    <column name="comment_deleted" phpName="CommentDeleted" type="TIMESTAMP" required="true"/>
+    <foreign-key foreignTable="users" name="fkc_made_by">
+      <reference local="made_by_user" foreign="email"/>
+    </foreign-key>
+    <foreign-key foreignTable="posts" name="fkc_post_id">
+      <reference local="to_post" foreign="post_id"/>
+    </foreign-key>
+    <index name="fkdc_made_by_idx">
+      <index-column name="made_by_user"/>
+    </index>
+    <index name="fkdc_post_id_idx">
+      <index-column name="to_post"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="posts" idMethod="native" phpName="Posts">
+    <column name="post_id" phpName="PostId" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="post_title" phpName="PostTitle" type="VARCHAR" size="150" required="true"/>
+    <column name="post_image_url" phpName="PostImageUrl" type="VARCHAR" size="256"/>
+    <column name="post_date" phpName="PostDate" type="TIMESTAMP" required="true"/>
+    <column name="active" phpName="Active" type="BOOLEAN" size="1" required="true"/>
+    <column name="user_id" phpName="UserId" type="VARCHAR" size="45" required="true"/>
+    <column name="times_visited" phpName="TimesVisited" type="INTEGER"/>
+    <column name="post_text" phpName="PostText" type="LONGVARCHAR" required="true"/>
+    <foreign-key foreignTable="users" name="fk_p_user_id">
+      <reference local="user_id" foreign="email"/>
+    </foreign-key>
+    <index name="fk_p_user_id_idx">
+      <index-column name="user_id"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="sitesettings" idMethod="native" phpName="Sitesettings">
+    <column name="site_name" phpName="SiteName" type="VARCHAR" size="45" required="true"/>
+    <column name="site_title" phpName="SiteTitle" type="VARCHAR" size="45" required="true"/>
+    <column name="site_subtitle" phpName="SiteSubtitle" type="VARCHAR" size="45" required="true"/>
+    <column name="updated" phpName="Updated" type="TIMESTAMP" required="true"/>
+    <column name="by_user" phpName="ByUser" type="VARCHAR" size="45" required="true"/>
+    <column name="site_mail" phpName="SiteMail" type="VARCHAR" size="45"/>
+    <column name="site_activated" phpName="SiteActivated" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
+    <column name="_id" phpName="Id" type="INTEGER" size="1" required="true"/>
+    <foreign-key foreignTable="users" name="fk_site_user_id">
+      <reference local="by_user" foreign="email"/>
+    </foreign-key>
+    <index name="fk_user_id_idx">
+      <index-column name="by_user"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="users" idMethod="native" phpName="Users">
+    <column name="email" phpName="Email" type="VARCHAR" size="45" primaryKey="true" required="true"/>
+    <column name="reg_date" phpName="RegDate" type="TIMESTAMP" required="true"/>
+    <column name="password" phpName="Password" type="VARCHAR" size="256" required="true"/>
+    <column name="role" phpName="Role" type="INTEGER" required="true" defaultValue="1"/>
+    <column name="active" phpName="Active" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
+    <column name="validated" phpName="Validated" type="BOOLEAN" size="1" required="true" defaultValue="false"/>
+    <column name="firstname" phpName="Firstname" type="VARCHAR" size="45"/>
+    <column name="lastname" phpName="Lastname" type="VARCHAR" size="45"/>
+    <column name="user_name" phpName="UserName" type="VARCHAR" size="45" required="true"/>
+    <column name="current_login" phpName="CurrentLogin" type="TIMESTAMP" required="true"/>
+    <column name="last_login" phpName="LastLogin" type="TIMESTAMP" required="true"/>
+    <unique name="email_UNIQUE">
+      <unique-column name="email"/>
+    </unique>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="validation_link" idMethod="native" phpName="ValidationLink">
+    <column name="validation_id" phpName="ValidationId" type="VARCHAR" size="50" primaryKey="true" required="true"/>
+    <column name="user_id" phpName="UserId" type="VARCHAR" size="45" required="true"/>
+    <column name="created" phpName="Created" type="TIMESTAMP" required="true"/>
+    <column name="used" phpName="Used" type="TIMESTAMP"/>
+    <foreign-key foreignTable="users" name="fk_val_user_id">
+      <reference local="user_id" foreign="email"/>
+    </foreign-key>
+    <index name="fk_user_id_idx">
+      <index-column name="user_id"/>
+    </index>
+    <unique name="link_UNIQUE">
+      <unique-column name="validation_id"/>
+    </unique>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+</database>

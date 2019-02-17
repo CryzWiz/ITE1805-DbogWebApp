@@ -1,0 +1,47 @@
+
+<div class="col-sm-12">
+
+    <p>Suspander eller aktiver brukerkontoer:</p>
+
+    <div class="row">
+        <div class="col-xs-11" style="padding-right: 0; padding-left: 15px;">
+            <select class="selectpicker form-control" id="find_username_admin2" name="find_username_admin2" data-live-search="true" data-live-search-placeholder="søk etter navn eller brukernavn">
+                {% for u in users %}
+                    <option data-icon="glyphicon glyphicon-user" value="{{ u.Email }}">{{ u.Username }} : {{ u.Firstname }} {{ u.Lastname }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-xs-1" style="padding: 0;">
+                <span class="input-group-btn">
+        <button class="btn btn-default" style="border-top-right-radius: 10%; border-bottom-right-radius: 10%;" type="button" id="find_user_admin">Finn</button>
+    </span>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <div class="row">
+        <p>Følgende informasjon er lagret om denne brukeren:</p>
+        <table class="table" >
+            <thead>
+                <tr>
+                    <th>
+                        Hva
+                    </th>
+                    <th>
+                        Lagret
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="aucTable">
+
+            </tbody>
+        </table>
+        <input type="hidden" id="active_user" name="active_user">
+
+    </div>
+
+
+</div>
+
+

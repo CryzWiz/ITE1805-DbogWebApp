@@ -1,0 +1,168 @@
+<!--/**
+* This file is part of the five-some CreateAdminDbTasks.class.php,
+* create_admin.php, create_admin_action.php and create_admin.twig, create_admin.css.
+*
+* These files are not exactly part of the blog. They are supposed to work in that way
+* that if the database holds no data ( precisely site_activated and a user with role 2)
+* the user get routed though this and has to give up some basic information for the site.
+* Make a admin account, set site name, site mail, give up full name etc etc.
+*
+* Just a quick way to get the site running after a fresh installation -> But not developed
+* very far since its not part of the exercise. Just a very simple implementation. Probably
+* not bug free.
+*/-->
+
+{% block head %}
+    <!DOCTYPE html>
+        <html lang="en">
+
+        <head>
+
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta name="description" content="">
+            <meta name="author" content="">
+
+            <title>{{ page_title }}</title>
+
+            <!-- <link rel="shortcut icon" href="assets/images/favicon.ico">-->
+
+            <!-- Bootstrap CSS -->
+            <link rel="stylesheet" href="{{ assets_dir }}/bootstrap-3.3.7/css/bootstrap.min.css">
+            <link rel="stylesheet" href="{{ assets_dir }}/bootstrap-3.3.7/css/bootstrap-theme.min.css" >
+            <!-- General styles -->
+            <link rel="stylesheet" href="{{ assets_dir }}/css/general_styles.css">
+            <!-- Specific libraries css and js -->
+            <link rel="stylesheet" href="{{ assets_dir }}/css/create_admin.css">
+            <!-- Latest compiled and minified JavaScript -->
+            <script type="text/javascript" src="{{ assets_dir }}/js/jquery-3.1.1.min.js"></script>
+
+        </head>
+{% endblock %}
+
+{% block content %}
+        <body>
+            <header>
+                {% if error == false and step > 1 and step < 4%}
+                    <h1>Flott, data er lagret.</h1>
+                    <p>{{ message }}</p>
+                    <br>
+                    <p>Fyll ut feltene under -> Steg {{ step }} av 3</p>
+                {% elseif  error == true %}
+                    <h1>En feil oppstod med følgende tilbakemelding:</h1>
+                    <p>{{ message }}</p>
+                {% elseif step == 1 %}
+                    <h1>Velkommen</h1>
+                    <p>Før du kan ta i bruk denne bloggen trengs det litt informasjon fra deg pluss
+                        at vi trenger å opprette en eierkonto for siden. En konto som kan endre på instillinger
+                        og opprette poster. Dette oppsettet vil gå over 3 steg.</p>
+                    <p>Vennligst oppgi følgende informasjon for steg 1</p>
+                {% elseif step == 4 %}
+
+                {% endif %}
+
+            </header>
+
+            <main>
+                <div class="wrapper">
+                    <div class="container_wrapper">
+                    </div>
+
+                    <div class="container_wrapper">
+                        {% if step == 1 %}
+                        <form action="create_admin_action.php" method="post">
+                            <input type="hidden" name="type" value="reg_account">
+
+                            <label for="email">Epost</label>
+                            <input type="text" id="email" name="email" placeholder="Epost" required>
+
+                            <label for="fname">Fornavn</label>
+                            <input type="text" id="fname" name="fname" placeholder="Fornavnet ditt" required>
+
+                            <label for="lname">Etternavn</label>
+                            <input type="text" id="lname" name="lname" placeholder="Etternavnet ditt" required>
+
+                            <label for="username">Ønsket brukernavn</label>
+                            <input type="text" id="username" name="username" placeholder="Ønsket brukernavn" required>
+
+                            <label for="password">Passord</label>
+                            <input type="password" id="password" name="password" placeholder="Passord" required>
+
+                            <label for="password2">Bekreft passordet ditt</label>
+                            <input type="password" id="password2" name="password2" placeholder="Gjenta passordet" required>
+
+                            <button type="submit" class="btn btn-success btn-sm" name="submit">
+                                Registrer</button>
+                        </form>
+                        {% elseif  step == 2%}
+                        <form action="create_admin_action.php" method="post">
+                            <input type="hidden" name="type" value="reg_sitesettings">
+                            <input type="hidden" name="current_id" value="{{ current_id }}">
+                            <input type="hidden" name="email" value="{{ email }}">
+
+                            <label for="sitename">Nettstedsnavn</label>
+                            <input type="text" id="sitename" name="sitename" placeholder="Ønsket navn for bloggen din" required>
+
+                            <label for="bloggtitle">Blogg Tittel</label>
+                            <input type="text" id="bloggtitle" name="bloggtitle" placeholder="Ønsket tittel for bloggen din" required>
+
+                            <label for="bloggsubtitle">Blogg undertittel</label>
+                            <input type="text" id="bloggsubtitle" name="bloggsubtitle" placeholder="Ønsket sub tittel for bloggen din" required>
+
+                            <button type="submit" class="btn btn-success btn-sm" name="submit">
+                                Registrer</button>
+                        </form>
+                        {% elseif  step == 3%}
+
+                            <h1>Gratulerer! Registreringen er vellykket. </h1>
+                            <p>Du kan nå navigere til bloggen din på nytt.</p>
+                            <p>Du vil da ha mulighet til å logge inn, lage poster osv.</p>
+                            <p>Velkommen som bruker av bloggen vår!</p>
+
+                            <form action="{{ public_html_dir }}">
+                                <button type="submit" class="btn btn-success btn-sm">
+                                    Begynn å bruke bloggen</button>
+                            </form>
+
+                        {% endif %}
+
+                        </form>
+                    </div>
+
+                    <div class="container_wrapper">
+                        <div class="info">
+
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+{% endblock %}
+            <footer>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul>
+                            <li><script type="text/javascript">
+                                    /* <![CDATA[ */
+                                    var myDate = new Date;
+                                    var thisyear = myDate.getFullYear();
+                                    document.write('<div class="copy">Copyright &copy; 2017 - ' + thisyear + '</div>');
+                                    /* ]]> */
+                                </script>
+                                <noscript><div class="copy">Copyright &copy; 2012 - present</div></noscript>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </footer>
+
+            <!-- jQuery -->
+            <script src="{{ assets_dir }}/js/jquery.js"></script>
+
+            <!-- Bootstrap Core JavaScript -->
+            <script src="{{ assets_dir }}/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+
+        </body>
+</html>

@@ -1,0 +1,79 @@
+{% extends "generalTemplate.twig" %}
+
+{% block head %}
+    <!-- Specific libraries css and js -->
+    <link rel="stylesheet" href="{{ assets_dir }}/bootstrap-3.3.7/css/blog-home.css">
+	<script type="text/javascript" href="{{ assets_dir }}/js/post_active_handler.js"></script>
+    <link rel="stylesheet" href="{{ assets_dir }}/bootstrap-3.3.7/css/bootstrap-select.css">
+
+
+{% endblock %}
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+
+                <h1 class="page-header">
+                    {{ page_heading }}
+                    <small>{{ page_secondary_heading }}</small>
+	                <a href="{{ public_html_dir }}/newPost.php" class="btn btn-primary" id="new-post">Opprett post</a>
+                </h1>
+	            <style>h1 a#new-post { float: right; }</style>
+	            {% for post in posts %}
+
+                <!-- First Blog Post -->
+                <h2><a href="post.php?post={{ post.PostId }}">{{ post.PostTitle }}</a>
+	                {% if post.UserId == user.Email %}
+		                <small><i>&nbsp;-&nbsp;<a href="{{ public_html_dir }}/newPost.php?post={{ post.PostId }}">Rediger</a>&nbsp;|&nbsp;
+		                {% if post.Active == 0 %}
+							<a onclick="post_activate({{ post.PostId }})">Aktiver</a>
+	                    {% else %}
+		                    <a onclick="post_deactivate({{ post.PostId }})">Deaktiver</a>
+	                    {% endif %}
+		                </i></small>
+	                {% endif %}
+                </h2>
+	            <p class="lead">
+                    av <a href="profile.php?user={{ post.UserId }}">{{ um.FullName(post.UserId) }}</a>
+				</p>
+				<p><span class="glyphicon glyphicon-time"></span> Postet den {{ post.postDate | date('d/m/Y') }} klokken {{ post.postDate | date('h:m:s') }} </p>
+				<hr>
+	            <img class="img-responsive" src="{{ post.PostImageUrl }}" alt="">
+				<hr>
+				<p>{{ post.PostText | slice(0, 400) ~ ' ...'}} </p>
+		            <div class="post-counters"><em>{{ post.TimesVisited }} visninger - <a href="{{ public_html_dir }}/post.php?post={{ post.PostId }}#comments">{{ post.NumberOfComments }} kommentarer</a></em></div>
+				<a class="btn btn-primary" href="{{ public_html_dir }}/post.php?post={{ post.PostId }}">Les mer .. <span class="glyphicon glyphicon-chevron-right"></span></a>
+
+				<hr>
+
+				{% endfor %}
+
+                <!-- Pager -->
+                <ul class="pager">
+                    {% if page > 0 %}
+                    <li class="previous">
+                        <a href="?page={{ page - 1 }}">&larr; Nyere</a>
+                    </li>
+                    {% endif %}
+                    {% if showNext %}
+                    <li class="next">
+                        <a href="?page={{ page + 1 }}">Eldre &rarr;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+
+            </div>
+            <!-- Include the sidebar -->
+            {% include 'sidebar_general.twig' %}
+
+        </div>
+        <!-- /.row -->
+
+        <hr>
+    </div>
+{% endblock %}

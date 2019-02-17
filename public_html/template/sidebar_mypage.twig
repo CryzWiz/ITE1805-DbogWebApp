@@ -1,0 +1,57 @@
+{% block content %}
+    <!-- Side menu for mypage -->
+    <br>
+    <br>
+    <br>
+    <br>
+
+    {% if user.role == 2 %}
+        <div class="well">
+            <h4>Hei {{ user.Firstname }}</h4>
+            <p>Du er logget inn som administrator.</p>
+            <p>Du vil derfor ha valg som gjelder for selve siden i tillegg til egne data.</p>
+        </div>
+    {% elseif user.role == 1 %}
+        <div class="well">
+            <h4>Hei {{ user.Firstname }}</h4>
+            <p>Dette er din side. Her kan du legge til eller slette informasjon som er lagret om deg.</p>
+        </div>
+    {% endif %}
+
+
+    <!-- Link well -->
+    <div class="well">
+        <h4>Dine snarveier</h4>
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="list-unstyled">
+                    <li><a data-toggle="pill" href="#home"><i class="glyphicon glyphicon-home"></i>
+                             Startsiden for Min Side</a>
+                    </li>
+                    <li><a data-toggle="pill" href="#userdata"><i class="glyphicon glyphicon-user"></i>
+                             Endre dine registrerte data</a>
+                    </li>
+                    {% if user.role == 2 %}
+                        <li><a data-toggle="pill" href="#stat"><i class="glyphicon glyphicon-stats"></i>
+                                 Se tall og statestikker for bloggen</a>
+                        </li>
+                        <li><a data-toggle="pill" href="#admindata"><i class="glyphicon glyphicon-wrench"></i>
+                                 Endre på innstillinger for nettstedet</a>
+                        </li>
+                        <li><a data-toggle="pill" href="#adminusercontroll"><i class="glyphicon glyphicon-lock"></i>
+                                Suspander eller aktiver brukerkontoer</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!-- /.col-lg-6 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- alerts to the user -->
+    <div class="alert alert-success alert-dismissable" id="alert_mypage" role="alert" style="display:none;">
+    </div>
+
+
+
+{% endblock %}

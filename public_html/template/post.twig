@@ -1,0 +1,92 @@
+{% extends "generalTemplate.twig" %}
+
+{% block head %}
+    <!-- Specific libraries css and js -->
+    <link rel="stylesheet" href="{{ assets_dir }}/bootstrap-3.3.7/css/blog-post.css">
+	<script type="text/javascript" src="{{ assets_dir }}/js/post_textformat.js"></script>
+	<script type="text/javascript" src="{{ assets_dir }}/js/commentHandler.js"></script>
+    <link rel="stylesheet" href="{{ assets_dir }}/bootstrap-3.3.7/css/bootstrap-select.css">
+
+{% endblock %}
+
+{% block content %}
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Blog Post Content Column -->
+            <div class="col-lg-8">
+
+                <!-- Blog Post -->
+
+                <!-- Title -->
+                <h1>{{ post.PostTitle }}</h1>
+
+                <!-- Author -->
+                <p class="lead">
+                    av <a href="profile.php?user={{ post.UserId }}">{{ um.FullName(post.UserId) }}</a>
+                </p>
+
+                <hr>
+
+                <!-- Date/Time -->
+                <p><span class="glyphicon glyphicon-time"></span> Postet den {{ of.dtOut(post.postDate) }}</p>
+
+                <hr>
+
+                <!-- Image -->
+	            {% if post.PostImageUrl is not null %}
+                <img class="img-responsive" src="{{ post.PostImageUrl }}" alt="">
+
+                <hr>
+                {% endif %}
+
+                <!-- Post Content -->
+                <div id="post-content">{{ post.PostText }}</div>
+	            <script type="text/javascript">
+                    document.getElementById("post-content").innerHTML = parseInput(document.getElementById("post-content").innerHTML);
+	            </script>
+
+
+                <hr>
+
+                <!-- Blog Comments -->
+
+                <!-- Comments Form -->
+                <div class="well">
+                    <h4>Skriv en kommentar:</h4>
+                    <form role="form" id="comment-form">
+                        <input type="hidden" id="input-post-id" name="postId" value="{{ post.PostId }}">
+                        <div class="form-group">
+                            <textarea name="commentInput" id="input-comment" class="form-control" rows="3" {% if not loginString %} disabled{% endif %}></textarea>
+                        </div>
+	                    <div class="alert-success" id="div-comment-msg" style="display: none">
+		                    <div id="icon-comment-msg" class="glyphicon glyphicon-chevron-right"></div>
+		                    <span id="text-comment-msg"></span>
+	                    </div>
+                        <button type="submit" class="btn btn-primary" {% if not loginString %} disabled{% endif %}>Lagre</button>
+                    </form>
+                </div>
+
+                <hr>
+
+                <!-- Posted Comments -->
+
+                <!-- Comment -->
+	            <div id="comments">
+	            {% for comment in comments %}
+	                {% include 'comment.twig' %}
+                {% endfor %}
+	            </div>
+
+            </div>
+
+            {% include 'sidebar_general.twig' %}
+
+        </div>
+        <!-- /.row -->
+
+        <hr>
+    </div>
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends "generalTemplate.twig" %}
+
+{% block head %}
+	<!-- Specific libraries css and js -->
+	<link rel="stylesheet" href="{{ assets_dir }}/bootstrap-3.3.7/css/blog-post.css">
+	<script type="text/javascript" src="{{ assets_dir }}/js/post_textformat.js"></script>
+	<link rel="stylesheet" href="{{ assets_dir }}/bootstrap-3.3.7/css/bootstrap-select.css">
+
+
+{% endblock %}
+
+{% block content %}
+<!-- Page Content -->
+<div class="container">
+
+	<div class="row">
+
+		<!-- Blog Post Creation -->
+		<div class="col-lg-8">
+
+			<!-- Title -->
+			<h1>Ny bloggpost</h1>
+
+			<hr>
+
+			<!-- Blog Post Creation Form -->
+			<form method="post" enctype="multipart/form-data">
+				{% if post is not null %}
+				<input type="hidden" name="post" value="{{ post.PostId }}">
+				{% endif %}
+				<div class="form-group">
+					<label for="input-title">Tittel:</label>
+					<input type="text" name="title" value="{{ post.PostTitle }}" id="input-title" class="form-control" placeholder="Tittel" onchange="updateTitle()">
+				</div>
+				<div class="form-group">
+					<label for="input-content">Innhold:</label>
+					<textarea name="content" id="input-content" class="form-control" rows="10" placeholder="Lorem ipsum dolor sit amet..." onchange="updateText()">{{ post.PostText }}</textarea>
+				</div>
+				<div class="form-group">
+					<label for="input-image">Bilde for innlegget</label>
+					<div id="input-image">
+						<div class="form-group">
+							<label for="image-url"><input type="radio" class="radio radio-inline" name="imageOption" value="url" checked> - URL:</label>
+							<input type="url" name="url" id="image-url" class="form-control form-inline" value="{{ post.PostImageUrl }}" placeholder="url-addresse">
+						</div>
+						<div class="form-group">
+							<label for="image-file"><input type="radio" name="imageOption" value="upload" id="radio-upload"> - Opplasting:</label>
+							<input type="file" name="image" id="image-file" class="form-control" onchange="loadFile(event)">
+						</div>
+						<label><input type="radio" name="imageOption" value="noImage"> - Ingen bilde</label>
+					</div>
+				</div>
+
+				<div>
+					<input type="submit" name="save" id="save" class="btn btn-primary pull-right" value="Lagre"/>
+					<a href="{{ public_html_dir }}/index.php" class="btn btn-primary pull-right" id="new-post">Avbryt</a>
+				</div>
+
+
+				<!-- Blog Post Preview -->
+				<h1>Forhåndsvisning</h1>
+
+				<hr>
+
+				<h2 id="preview-title">{{ post.PostTitle }}</h2>
+				<p class="lead">
+					by {{ name }}
+				</p>
+				<!-- Date/Time -->
+				<p><span class="glyphicon glyphicon-time"></span>
+					{% if post is not null %}Postet den {{ of.dtOut(post.postDate) }}
+					{% else %}Postet den {{ date }}
+					{% endif %}
+				</p>
+				<hr>
+				{% if post.PostImageUrl is not null %}
+					<div id="preview-image"><img src="{{ post.PostImageUrl }}" class="img-responsive" id="preview-img" alt=""><hr></div>
+				{% else %}
+					<div id="preview-image" style="display: none"><img class="img-responsive" id="preview-img" alt=""><hr></div>
+				{% endif %}
+				<p id="preview-text">{{ post.PostText }}</p>
+				<hr>
+				<input name="save" type="submit" class="btn btn-primary pull-right" id="save" value="Lagre"/>
+				<a href="{{ public_html_dir }}/index.php" class="btn btn-primary pull-right" id="new-post">Avbryt</a>
+			</form>
+
+			<script type="text/javascript">
+				function updateTitle(){
+				    document.getElementById("preview-title").innerHTML = document.getElementById("input-title").value;
+				}
+				function updateText(){
+                    //document.getElementById("preview-text").innerHTML = document.getElementById("input-content").value;
+                    document.getElementById("preview-text").innerHTML = parseInput(document.getElementById("input-content").value);
+				}
+                var loadFile = function(event) {
+				    document.getElementById("radio-upload").checked = true;
+                    document.getElementById("preview-image").style.display = "none";
+                    var url;
+				    if(url = URL.createObjectURL(event.target.files[0])) {
+                        document.getElementById("preview-img").src = url;
+                        document.getElementById("preview-image").style.display = "block";
+                    }
+                };
+			</script>
+
+		</div>
+
+
+
+		<!-- Include the sidebar -->
+		{% include 'sidebar_general.twig' %}
+
+	</div>
+	<!-- /.row -->
+
+	<hr>
+	{% endblock %}

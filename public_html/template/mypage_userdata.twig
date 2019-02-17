@@ -1,0 +1,46 @@
+<div class="col-sm-12">
+
+    <p><i class="glyphicon glyphicon-info-sign"></i> For å slette data fjerner du det du ønsker bort og trykker lagre.</p>
+    <p><i class="glyphicon glyphicon-info-sign"></i> For å endre data redigerer du det som skal endres og trykker lagre.</p>
+
+    <br>
+
+    <h3>Endre registrerte data:</h3>
+    <div class="form-group">
+        <label for="firstname">Fornavn</label>
+        <input type="text" id="fname" name="fname" value="{{ user.firstname }}">
+        <input type="hidden" id="email" name="email" value="{{ user.email }}">
+        <button class="btn btn-md btn-success" type="button" id="updateFirstname"><i class="glyphicon glyphicon-ok-sign"></i>
+        Oppdater fornavnet</button>
+    </div>
+    <div class="form-group">
+        <label for="lastname">Etternavn</label>
+        <input type="text" id="lname" name="lname" value="{{ user.lastname }}">
+        <input type="hidden" id="email" name="email" value="{{ user.email }}">
+        <button class="btn btn-md btn-success" type="button" id="updateLastname"><i class="glyphicon glyphicon-ok-sign"></i>
+        Oppdater etternavnet</button>
+    </div>
+    <div class="form-group">
+        <label for="username">Brukernavn</label>
+        <input type="text" id="uname" name="uname" value="{{ user.username }}">
+        <input type="hidden" id="email" name="email" value="{{ user.email }}">
+        <button class="btn btn-md btn-success" type="button" id="updateUsername"><i class="glyphicon glyphicon-ok-sign"></i>
+            Oppdater brukernavnet</button>
+    </div>
+    <br>
+    <br>
+    <div class="form-group">
+        <h3>Endre på passordet:</h3>
+        <label for="username">Skriv inn nytt passord</label>
+        <input type="password" id="passOne" name="passOne"  value="" placeholder="Skriv inn nyttpassord" required>
+        <label for="username">Bekreft nytt passord</label>
+        <input type="password" id="passTwo" name="passTwo" value="" placeholder="Bekreft nytt passord" required>
+        <input type="hidden" id="email" name="email" value="{{ user.email }}">
+        <button class="btn btn-md btn-success" type="button" id="updatePassword"><i class="glyphicon glyphicon-ok-sign"></i>
+            Oppdater Passordet</button>
+    </div>
+
+
+</div>
+
+

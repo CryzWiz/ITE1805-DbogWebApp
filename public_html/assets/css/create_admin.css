@@ -1,0 +1,89 @@
+/**
+ * This file is part of the five-some CreateAdminDbTasks.class.php,
+ * create_admin.php, create_admin_action.php and create_admin.twig, create_admin.css.
+ *
+ * These files are not exactly part of the blog. They are supposed to work in that way
+ * that if the database holds no data ( precisely site_activated and a user with role 2)
+ * the user get routed though this and has to give up some basic information for the site.
+ * Make a admin account, set site name, site mail, give up full name etc etc.
+ *
+ * Just a quick way to get the site running after a fresh installation -> But not developed
+ * very far since its not part of the exercise. Just a very simple implementation. Probably
+ * not bug free.
+ */
+
+html{
+
+}
+body{
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+header{
+    text-align: center;
+    padding-top: 50px;
+}
+footer{
+    text-align: center;
+    position:relative;
+    bottom:0;
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+.info{
+    max-width: 300px;
+    position: relative;
+    right: 33.33333%;
+    left: 33.33333%;
+}
+/* Bruker container-wrappers for å sette alt til midten av siden
+*  med en vidde på 33,33% av siden. Det gjør det også enkelt å bare plassere innhold i
+*  en enkelt div alt etter hvordan "side" av skjermen jeg vil ha det på.
+*  Gjort så enkelt som mulig siden det ikke var noen spesielle krav til
+*  css eller html
+ **/
+.container_wrapper {
+    min-width: 33.33333333%;
+    max-width: 33.33333333%;
+    width: 33.33333333%;
+    min-height: 50px;
+    display: inline-block;
+    position: relative;
+    float: left;
+}
+.wrapper{
+    display: inline-block;
+    min-width: 100%;
+}

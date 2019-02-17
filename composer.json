@@ -1,0 +1,20 @@
+{
+  "name": "vendor_name/package_name",
+  "description": "description_text",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "autoload": {
+    "classmap": ["generated-classes/"]
+  },
+  "require":{
+    "propel/propel":"2.0.*@dev",
+    "twig/twig":"~2.0",
+    "monolog/monolog": "^1.22"
+  },
+  "authors": [
+    {
+      "name": "author's name",
+      "email": "email@example.com"
+    }
+  ]
+}

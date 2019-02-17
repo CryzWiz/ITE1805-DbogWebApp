@@ -1,0 +1,45 @@
+<div class="media" id="comment{{ comment.CommentId }}">
+	<a class="pull-left" href="#">
+		<img class="media-object" src="http://placehold.it/64x64" alt="">
+	</a>
+	<div class="media-body">
+		<h4 class="media-heading">{{ um.FullName(comment.MadeByUser) }}
+			<small>August 25, 2014 at 9:30 PM</small>
+		</h4>
+		{{ comment.Comment }}<br>
+		<small><i>
+			{% if loginString %}
+				&nbsp;-&nbsp;<a onclick="comment_reply_form({{ comment.CommentId }},{{ comment.CommentId }})">Svar</a>
+				{% if comment.MadeByUser == user.Email %}
+					&nbsp;|&nbsp;<a onclick="comment_remove({{ comment.CommentId }})">Fjern</a>
+				{% endif %}
+			{% endif %}
+		</i></small>
+		<div class="replies">
+			{% for reply in comment.Replies %}
+				<div class="media" id="comment{{ reply.CommentId }}">
+					<a class="pull-left" href="#">
+						<img class="media-object" src="http://placehold.it/64x64" alt="">
+					</a>
+					<div class="media-body">
+						<h4 class="media-heading">{{ um.FullName(reply.MadeByUser) }}
+							<small>August 25, 2014 at 9:30 PM</small>
+						</h4>
+						{{ reply.Comment }}<br>
+						<small><i>
+								{% if loginString %}
+									&nbsp;-&nbsp;<a onclick="comment_reply_form({{ comment.CommentId }},{{ reply.CommentId }})">Svar</a>
+								{% if reply.MadeByUser == user.Email %}
+									&nbsp;|&nbsp;<a onclick="comment_remove({{ reply.CommentId }})">Fjern</a>
+								{% endif %}
+							{% endif %}
+						</i></small>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		<div id="reply{{ comment.CommentId }}">
+		</div>
+
+	</div>
+</div>
